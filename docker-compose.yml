@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+  backend:
+    container_name: money-tracking-backend
+    build: .
+    ports:
+      - "5000:5000" # Expose the backend on port 5000
+    environment:
+      - NODE_ENV=development
+      - DB_CONNECTION_STRING=postgres://mtuser:mtuser@db:5432/money_tracking
+      - JWT_SECRET=s3cr3t
+      - PORT=5000
+    depends_on:
+      - db
+    volumes:
+      - .:/usr/src/app
+    networks:
+      - app-network
+
+  db:
+    container_name: postgres-db
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: mtuser
+      POSTGRES_PASSWORD: mtuser
+      POSTGRES_DB: money_tracking
+    ports:
+      - "5432:5432" # Expose the PostgreSQL database on port 5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+volumes:
+  pgdata:
+
+networks:
+  app-network:
+    driver: bridge

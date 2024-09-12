@@ -13,11 +13,11 @@ app.use(express.json());
 
 // Import routes (to be created)
 const userRoutes = require('./routes/userRoutes');
-const transactionRoutes = require('./routes/transactionRoutes');
+// const transactionRoutes = require('./routes/transactionRoutes');
 
 // Use the routes (example for users and transactions)
 app.use('/api/users', userRoutes);
-app.use('/api/transactions', transactionRoutes);
+// app.use('/api/transactions', transactionRoutes);
 
 // Home route for basic health check
 app.get('/', (req, res) => {
